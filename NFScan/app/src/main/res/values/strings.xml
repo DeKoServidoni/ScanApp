@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NFScan</string>
+    <string name="img_process_text">Processando imagem...</string>
+</resources>
