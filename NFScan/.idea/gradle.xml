@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/library/tess-two" />
+            <option value="$PROJECT_DIR$/library2" />
+            <option value="$PROJECT_DIR$/library2/opencv" />
           </set>
         </option>
       </GradleProjectSettings>

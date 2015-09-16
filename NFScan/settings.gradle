@@ -1,2 +1,3 @@
 include ':app'
 include ':library:tess-two'
+include ':library2:opencv'
