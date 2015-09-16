@@ -5,8 +5,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Class responsible to manage the camera and it's properties
@@ -50,7 +48,7 @@ public class CameraManager {
 	public File getOutputMediaFile(){
 
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-	              Environment.DIRECTORY_PICTURES), "ProjectScanImages");
+	              Environment.DIRECTORY_PICTURES), "nfscan_images");
 	    
 	    // Create the storage directory if it does not exist
 	    if (! mediaStorageDir.exists()){
@@ -61,8 +59,8 @@ public class CameraManager {
 	    }
 
 	    // Create a media file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    File mediaFile = null;
+	    String timeStamp = "img";//new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+	    File mediaFile;
 	    mediaFile = new File(mediaStorageDir.getPath() + File.separator +
 	        "IMG_"+ timeStamp + ".jpg");
 

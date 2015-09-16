@@ -11,6 +11,10 @@ import android.util.Log;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import org.opencv.android.Utils;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
 import java.io.IOException;
 
 import projectscan.com.br.nfscan.R;
@@ -27,7 +31,9 @@ public class ProcessPhotoTask extends AsyncTask<String, Void, String> {
 	
 	/** Log tag */
 	private static final String TAG = ProcessPhotoTask.class.getSimpleName();
-	
+
+	static{ System.loadLibrary("opencv_java3"); }
+
 	/**
 	 * Interface responsible to indicates when the task finish
 	 * 
@@ -117,17 +123,33 @@ public class ProcessPhotoTask extends AsyncTask<String, Void, String> {
 	 */
 	private String processPhoto(String path) throws IOException {
 		Bitmap bitmap = correctRotation(path);
+		Bitmap converted = convertToGrayscale(bitmap);
 		
 		TessBaseAPI baseApi = new TessBaseAPI();
-		baseApi.init(Constants.TESSERACT_FOLDER, Constants.TESSERACT_LANGUAGE);
-		baseApi.setImage(bitmap);
-		
+		baseApi.clear();
+		baseApi.setDebug(true);
+		baseApi.init(Constants.TESSERACT_FOLDER, Constants.TESSERACT_LANGUAGE, TessBaseAPI.OEM_DEFAULT);
+		baseApi.setImage(converted);
 		//TODO: convert image to GRAY SCALE USING OCV Library
-		
+
 		String recognizedText = baseApi.getUTF8Text();
 		baseApi.end();
-		
+
 		return recognizedText;
+	}
+
+	private Bitmap convertToGrayscale(Bitmap bitmap) {
+		Mat imgToProcess = new Mat();
+		Utils.bitmapToMat(bitmap, imgToProcess);
+
+		Imgproc.cvtColor(imgToProcess, imgToProcess, Imgproc.COLOR_BGR2GRAY);
+		Imgproc.cvtColor(imgToProcess, imgToProcess, Imgproc.COLOR_GRAY2RGBA, 4);
+
+		Bitmap bmpOut = Bitmap.createBitmap(imgToProcess.cols(), imgToProcess.rows(), Bitmap.Config.ARGB_8888);
+
+		Utils.matToBitmap(imgToProcess, bmpOut);
+
+		return bmpOut;
 	}
 	
 	/**
