@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import projectscan.com.br.nfscan.customs.CameraPreview;
+import projectscan.com.br.nfscan.entities.Picture;
 import projectscan.com.br.nfscan.managers.CameraManager;
 import projectscan.com.br.nfscan.tasks.ProcessPhotoTask;
 
@@ -113,9 +114,10 @@ public class MainActivity extends Activity implements ProcessPhotoTask.ProcessPh
 	 */
 	@Override
 	public void onFinish(String text) {
-		//TODO
 		Log.e(TAG,"RESULT: "+text);
-		
+
+		Picture picture = new Picture();
+		picture.setCode(text);
 	}
 	
 	/*
