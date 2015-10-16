@@ -59,10 +59,8 @@ public class CameraManager {
 	    }
 
 	    // Create a media file name
-	    String timeStamp = "img";//new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-	    File mediaFile;
-	    mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-	        "IMG_"+ timeStamp + ".jpg");
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
 
 	    return mediaFile;
 	}
